@@ -7,6 +7,27 @@ defmodule CsvViewer.Main do
 
   def main(args) do
   	{ :ok, pid } = :gen_server.start_link(CsvViewer.Page, 0, [])
+		loop(:nothing, args, pid)
+  end
+
+  def loop(:e, _, _) do
+  	System.halt(0)
+  end
+
+  def loop(input, args, pid) do
+		case input do
+			:n -> :gen_server.call(pid, :next_page)
+			:p -> :gen_server.call(pid, :prev_page)
+			_ -> 
+		end
+		show_page args, pid
+		input = IO.gets("Next Prev Last First Exit\n")
+      |> String.strip
+      |> binary_to_atom
+    loop(input, args, pid)
+  end
+
+  def show_page(args, pid) do
   	limit = lines_per_page args
   	args
   	  |> file_name
