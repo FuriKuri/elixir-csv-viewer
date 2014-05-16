@@ -5,6 +5,7 @@ defmodule CsvViewer.Mixfile do
     [app: :csv_viewer,
      version: "0.0.1",
      elixir: "~> 0.13.0",
+     escript_main_module: CsvViewer.Main,
      deps: deps]
   end
 
