@@ -15,16 +15,23 @@ defmodule CsvViewer.Main do
   end
 
   def loop(input, args, pid) do
-		case input do
-			:n -> :gen_server.call(pid, :next_page)
-			:p -> :gen_server.call(pid, :prev_page)
-			_ -> 
-		end
+    do_action input, pid
 		show_page args, pid
-		input = IO.gets("Next Prev Last First Exit\n")
+    loop(next_input, args, pid)
+  end
+
+  defp next_input do
+    IO.gets("Next Prev Last First Exit\n")
       |> String.strip
       |> binary_to_atom
-    loop(input, args, pid)
+  end
+
+  defp do_action(input, pid) do
+    case input do
+      :n -> :gen_server.call(pid, :next_page)
+      :p -> :gen_server.call(pid, :prev_page)
+      _ -> 
+    end
   end
 
   def show_page(args, pid) do
