@@ -2,4 +2,4 @@
 /deps
 erl_crash.dump
 *.ez
-./csv_viewer
+/csv_viewer
