@@ -13,7 +13,12 @@ defmodule CsvViewer.Printer do
 	def widths(lines) do
 		lines
 		  |> Enum.map( &( Enum.map(&1, fn x -> String.length(x) end ) ) )
-		  |> Matrix.transpose
+		  |> transpose
 		  |> Enum.map(&(Enum.max(&1)))
+	end
+
+	defp transpose([[]|_]), do: []
+	defp transpose(a) do
+	  [Enum.map(a, &hd/1) | transpose(Enum.map(a, &tl/1))]
 	end
 end
