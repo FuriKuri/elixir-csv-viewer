@@ -1,13 +1,13 @@
 defmodule CsvViewer.Main do
-	import CsvViewer.CLI, only: [ file_name: 1, lines_per_page: 1 ]
-	import CsvViewer.File, only: [ read: 1 ]
-	import CsvViewer.Paging, only: [ extract: 3 ]
-	import CsvViewer.Parser, only: [ parse: 1 ]
-	import CsvViewer.Printer, only: [ print: 1 ]
+  import CsvViewer.CLI, only: [ file_name: 1, lines_per_page: 1 ]
+  import CsvViewer.File, only: [ read: 1 ]
+  import CsvViewer.Paging, only: [ extract: 3 ]
+  import CsvViewer.Parser, only: [ parse: 1 ]
+  import CsvViewer.Printer, only: [ print: 1 ]
 
   def main(args) do
   	{ :ok, pid } = :gen_server.start_link(CsvViewer.Page, 0, [])
-		loop(:nothing, args, pid)
+    loop(:nothing, args, pid)
   end
 
   def loop(:e, _, _) do
@@ -16,7 +16,7 @@ defmodule CsvViewer.Main do
 
   def loop(input, args, pid) do
     do_action input, pid
-		show_page args, pid
+    show_page args, pid
     loop(next_input, args, pid)
   end
 
@@ -30,7 +30,7 @@ defmodule CsvViewer.Main do
     case input do
       :n -> :gen_server.call(pid, :next_page)
       :p -> :gen_server.call(pid, :prev_page)
-      _ -> 
+      _ ->
     end
   end
 
