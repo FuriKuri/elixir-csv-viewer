@@ -6,7 +6,7 @@ defmodule CsvViewer.Main do
   import CsvViewer.Printer, only: [ print: 1 ]
 
   def main(args) do
-  	{ :ok, pid } = :gen_server.start_link(CsvViewer.Page, 0, [])
+    { :ok, pid } = :gen_server.start_link(CsvViewer.Page, 0, [])
     loop(:nothing, args, pid)
   end
 
