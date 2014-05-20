@@ -35,12 +35,12 @@ defmodule CsvViewer.Main do
   end
 
   def show_page(args, pid) do
-  	limit = lines_per_page args
-  	args
-  	  |> file_name
-  	  |> read
-  	  |> extract(:gen_server.call(pid, :current_page), limit)
-  	  |> parse
-  	  |> print
+    limit = lines_per_page args
+    args
+      |> file_name
+      |> read
+      |> extract(:gen_server.call(pid, :current_page), limit)
+      |> parse
+      |> print
   end
 end
